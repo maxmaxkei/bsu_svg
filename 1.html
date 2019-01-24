@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 1.1.Изучить структуру элемента <svg> (раздел 5.1.2) и атрибута viewBox (7.7). 
+Проверить, что пример из раздела 7.7 спецификации правилно отображаются в веб браузере. -->
+	<div>
+		<p>1.1</p>
+		<svg width="300px" height="200px" version="1.1"
+		viewBox="0 0 1500 1000" preserveAspectRatio="none"
+		xmlns="http://www.w3.org/2000/svg">
+			<desc>Example ViewBox - uses the viewBox
+			attribute to automatically create an initial user coordinate
+			system which causes the graphic to scale to fit into the
+			viewport no matter what size the viewport is.</desc>
+			<!-- This rectangle goes from (0,0) to (1500,1000) in user space.
+			Because of the viewBox attribute above,
+			the rectangle will end up filling the entire area
+			reserved for the SVG content. -->
+			<rect x="0" y="0" width="1500" height="1000"
+			fill="yellow" stroke="blue" stroke-width="12" />
+			<!-- A large, red triangle -->
+			<path fill="red" d="M 750,100 L 250,900 L 1250,900 z"/>
+			<!-- A text string that spans most of the viewport -->
+			<text x="100" y="600" font-size="200" font-family="Verdana" >
+			Stretch to fit
+			</text>
+		</svg>
+	</div>
+<!-- 1.2.Ознакомиться с разделами 8.1, 8.2, 8.3.1-8.3.4 документации SVG. 
+Нарисовать пятиугольную звезду при помощи элемента <path>. -->
+	<div>
+		<p>1.2</p>
+		<svg width="500" height="500">
+			<path stroke="blue" fill="gray" stroke-width="3" 
+			d="M 130,0 L 160,130 L 290,130 L 180,200 L 290,320 L 130,240 L 0,320 L 90,200 L 0,130 L 100,130 z"/>
+		</svg>
+	</div>
+<!-- 1.3.Ознакомиться с заданием кубических кривых (кривых Безье) в синтаксисе SVG (разделы 8.3.5, 8.3.6). 
+Приближенно нарисовать один период синусоды.  -->
+	<div>
+		<p>1.3</p>
+		<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
+			<path d="M 40,140 C 80 140, 80 160, 87 180 S 160 450, 193 180" 
+				stroke="black" stroke-width="3"  fill="transparent"/>
+			<path d="M 193,180 C 200 160, 200 140, 240 140 " 
+				stroke="black" stroke-width="3"  fill="transparent"/>
+		</svg>
+	</div>
+<!-- 1.4.Ознакомиться с заданием дуг эллипсов по разделу 8.3.8. 
+Нарисовать секторы окружности с углами 90% и 30%.  -->
+	<div>
+		<p>1.4</p>
+		<svg width="500" height="200">
+			<path d="M275,175 v-150 a150,150 0 0,0 -150,150 z"fill="yellow" stroke="blue" stroke-width="5" />
+		</svg>
+		<svg width="500" height="200">
+			<path d="M275,175 v-150 a150,150 0 0,0 -50,8 z"fill="yellow" stroke="blue" stroke-width="5" />
+		</svg>
+	</div>
+<!-- 1.5.Ознакомиться с описанием элемента <text> (раздел 10.4). 
+Нарисовать строку “Hello, World!” двумя разными шрифтами в 2 различных размерах. -->
+	<div>
+		<p>1.5</p>
+		<svg> 
+			<text x="10" y="30" font-family="Verdana" font-size="25" fill="blue" >
+				Hello, World!
+			</text> 
+		</svg> 
+		<svg> 
+			<text y="30" font-family="Georgia" font-size="10" fill="blue" >
+				Hello, World!
+			</text> 
+		</svg> 
+	</div>
+<!-- 1.6.Ознакомиться с описанием элемента <tspan> (раздел 10.5). Нарисовать строку “This is an example of bold, italic and bold-italic” двумя способами – 
+с явным указанием атрибута font и используя атрибуты font-family, font-style и font-weight (раздел 10.10). -->
+	<div>
+		<p>1.6</p>
+		<svg width="500"> 
+  			<text x="0" y="15">
+  				This is an example of <tspan font-weight="bold">bold</tspan>, <tspan font-style="italic">italic</tspan> and 
+  				<tspan font-style="italic" font-weight="bold">bold-italic
+			</text>
+		</svg>
+		<br>
+		<!-- не понятно как просто через font сделать-->
+	</div>
+<!-- 1.7.Используя атрибуты dx и dy нарисовать строку BSU™. -->
+	<div>
+		<p>1.7</p>
+		<svg width="500">
+			<text x="0" y="15">
+				<tspan dx="0" dy="0" font-weight="bold">
+					B
+				</tspan>
+				<tspan dx="-3" dy="0" font-weight="bold">
+					S
+				</tspan>
+				<tspan dx="-3" dy="0" font-weight="bold">
+					U
+				</tspan>
+				<tspan dx="-3" dy="-7" font-size="6">
+					TM
+				</tspan>
+			</text>
+		</svg>
+	</div>
+<!-- 1.8.Ознакомиться с различными модификациями текста, указанными в разделе 10.12. 
+Нарисовать строку “This is an example of the underlined text”. -->
+	<div>
+		<p>1.8</p>
+		<svg width="500">
+			<text x="0" y="15">
+				This is an example of the 
+				<tspan text-decoration="underline">underlined</tspan>
+				text
+			</text>
+		</svg>
+	</div>
+
+</body>
+</html>
