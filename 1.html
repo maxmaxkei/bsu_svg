@@ -9,11 +9,8 @@
 <script type="text/javascript">
 
 	const addBorder = (e) => {
-		if (e.target.getAttribute("stroke-width") == 0) {
-			e.target.setAttribute("stroke-width", 3)
-		} else {
-			e.target.setAttribute("stroke-width", 0);
-		} 
+		e.target.getAttribute("stroke-width") == 0 ?
+			e.target.setAttribute("stroke-width", 3) : e.target.setAttribute("stroke-width", 0);
 	} 
 
 </script>
