@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+    	#orange-circle:hover {
+			fill: chocolate;
+    	}
+		.draggable {
+			cursor: move;
+		}
+    </style>
 </head>
 <body>
-
-<script type="text/javascript">
-
-	const addBorder = (e) => {
-		e.target.getAttribute("stroke-width") == 0 ?
-			e.target.setAttribute("stroke-width", 3) : e.target.setAttribute("stroke-width", 0);
-	} 
-
-</script>
 
 <!-- 1.1.Изучить структуру элемента <svg> (раздел 5.1.2) и атрибута viewBox (7.7). 
 Проверить, что пример из раздела 7.7 спецификации правилно отображаются в веб браузере. -->
@@ -56,9 +55,7 @@
 	<div>
 		<p>1.3</p>
 		<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg">
-			<path d="M 40,140 C 80 140, 80 160, 87 180 S 160 450, 193 180" 
-				stroke="black" stroke-width="3"  fill="transparent"/>
-			<path d="M 193,180 C 200 160, 200 140, 240 140 " 
+			<path d="M 40,140 C 40 280, 80 280, 80 140 S 120 0, 120 140" 
 				stroke="black" stroke-width="3"  fill="transparent"/>
 		</svg>
 	</div>
@@ -147,9 +144,12 @@
 
 <!-- 3.2. Познакомиться с обработкой пользовательских событий в SVG (разделы 18.2 и 18.3). Реализовать изменение цвета (затемнение) 
 окружности при наведении мышки на нее и появление / удаление границы окружности по клику мышки (эффект выделения объекта). -->
+
+<!-- 3.3. Познакомиться с обработкой событий для перемещения объектов (drag and drop): http://www.petercollingridge.co.uk/interactive-svg-components/draggable-svg-element . Реализовать поддержку перемещения окружности из пункта 3.2 -->
+
 	<div>
 		<p>3.1</p>
-		<svg width="200" height="200">
+		<svg width="500" height="500" onload="drag(evt)">
 			<animate 
 			       xlink:href="#orange-circle"
 			       attributeName="r"
@@ -161,9 +161,59 @@
 			       begin="0s"
 			       fill="freeze" 
 			       repeatCount="indefinite"/>
-	       	<circle id="orange-circle" r="30" cx="70" cy="70" fill="orange" onclick="addBorder(event)" stroke-width="0" stroke="black"/>
+	       	<circle id="orange-circle" r="30" cx="70" cy="70" 
+	       			fill="orange"
+	       			class="draggable"
+	       			stroke-width="0" stroke="black"
+	       			onclick="addBorder(event)"/>
 		</svg>
 	</div>
+
+	<script type="text/javascript">
+
+		const drag = (e) => {
+
+			const getPointerPosition = (e) => {
+				return {
+					x: (e.clientX) ,
+					y: (e.clientY) 
+				};
+			}
+
+			let selectedElement, offset;
+
+			const startDrag = (e) => {
+				if (e.target.classList.contains('draggable')) {
+					selectedElement = e.target;
+					offset = getPointerPosition(e);
+					offset.x -= selectedElement.getAttributeNS(null, "cx");
+					offset.y -= selectedElement.getAttributeNS(null, "cy");
+				}
+			}
+
+			const drag = (e) => {
+				if (selectedElement) {
+					let coord = getPointerPosition(e);
+					selectedElement.setAttributeNS(null, "cx", coord.x - offset.x);
+					selectedElement.setAttributeNS(null, "cy", coord.y - offset.y);
+				}
+			}
+
+			const endDrag = (e) => {
+				selectedElement = null;
+			}
+
+			e.target.addEventListener('mousedown', startDrag);
+			e.target.addEventListener('mousemove', drag);
+			e.target.addEventListener('mouseup', endDrag);
+
+		}
+
+		const addBorder = (e) => {
+			e.target.getAttribute("stroke-width") == 0 ?
+				e.target.setAttribute("stroke-width", 3) : e.target.setAttribute("stroke-width", 0);
+		} 
+	</script>
 
 </body>
 </html>
